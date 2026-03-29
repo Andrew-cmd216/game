@@ -8,40 +8,43 @@ on:
 
 jobs:
   lint:
-  runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Cache Ren'Py
-      id: cache-renpy
-      uses: actions/cache@v4
-      with:
-        path: renpy
-        key: ${{ runner.os }}-renpy-${{ hashFiles('**/.renpy-version') || '8.3' }}
+      - name: Cache Ren'Py
+        id: cache-renpy
+        uses: actions/cache@v4
+        with:
+          path: renpy
+          key: ${{ runner.os }}-renpy-${{ hashFiles('**/.renpy-version') || '8.3' }}
 
-    - name: Setup Ren'Py
-      uses: Ayowel/renpy-setup-action@v2.0.1
-      if: steps.cache-renpy.outputs.cache-hit != 'true'
-      with:
-        action: install
-        install_dir: renpy
+      - name: Setup Ren'Py
+        uses: Ayowel/renpy-setup-action@v2.0.1
+        if: steps.cache-renpy.outputs.cache-hit != 'true'
+        with:
+          action: install
+          install_dir: renpy
 
-    - name: Clean testcases and compiled files
-      run: |
-        echo "=== Cleaning possible duplicate testcases ==="
-        rm -fv game/testcases.rpy game/testcases.rpyc
-        rm -fv gui/game/testcases.rpy gui/game/testcases.rpyc
-        rm -fv game/gui/game/testcases.rpy game/gui/game/testcases.rpyc 2>/dev/null || true
+      - name: Clean duplicate testcases and compiled files
+        run: |
+          echo "=== Cleaning possible duplicate testcases.rpy ==="
+          rm -fv game/testcases.rpy game/testcases.rpyc
+          rm -fv gui/game/testcases.rpy gui/game/testcases.rpyc
+          rm -fv game/gui/game/testcases.rpy game/gui/game/testcases.rpyc 2>/dev/null || true
           
-        echo "=== Removing all .rpyc files to force recompile ==="
-        find game -name "*.rpyc" -delete 2>/dev/null || true
-        find gui -name "*.rpyc" -delete 2>/dev/null || true
+          echo "=== Removing all .rpyc files to force full recompile ==="
+          find game -name "*.rpyc" -delete 2>/dev/null || true
+          find gui -name "*.rpyc" -delete 2>/dev/null || true
+          
+          echo "=== Current testcases files (should be none) ==="
+          find . -name "*testcases*" -type f || true
 
-    - name: Run Ren'Py Lint
-      uses: Ayowel/renpy-setup-action@v2.0.1
-      with:
-        action: exec
-        install_dir: renpy
-        run: lint . --define config.testcases=False
+      - name: Run Ren'Py Lint
+        uses: Ayowel/renpy-setup-action@v2.0.1
+        with:
+          action: exec
+          install_dir: renpy
+          run: lint . --define config.testcases=False
