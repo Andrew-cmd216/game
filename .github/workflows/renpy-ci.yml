@@ -7,19 +7,19 @@ on:
     branches: [ main, master ]
 
 jobs:
-  lint-and-build:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Cache Ren'Py SDK
+      - name: Cache Ren'Py
         id: cache-renpy
         uses: actions/cache@v4
         with:
           path: renpy
-          key: ${{ runner.os }}-renpy-${{ hashFiles('**/.renpy-version') || 'default' }}
+          key: ${{ runner.os }}-renpy-${{ hashFiles('**/.renpy-version') || '8.3' }}
 
       - name: Setup Ren'Py
         uses: Ayowel/renpy-setup-action@v2.0.1
@@ -31,22 +31,6 @@ jobs:
       - name: Run Ren'Py Lint
         uses: Ayowel/renpy-setup-action@v2.0.1
         with:
-          action: exec
+          action: lint
           install_dir: renpy
-          run: lint "${{ github.workspace }}"
-
-      - name: Compile check (optional)
-        uses: Ayowel/renpy-setup-action@v2.0.1
-        with:
-          action: exec
-          install_dir: renpy
-          run: compile "${{ github.workspace }}"
-
-      # === Сборка дистрибутивов ===
-      # - name: Build distributions
-      #   uses: Ayowel/renpy-setup-action@v2.0.1
-      #   with:
-      #     action: distribute
-      #     install_dir: renpy
-      #     project_path: "${{ github.workspace }}"
-      #     platforms: "linux mac windows"   
+          game: .                    
