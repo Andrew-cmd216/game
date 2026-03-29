@@ -13,8 +13,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Cache Ren'Py
         id: cache-renpy
@@ -30,10 +28,9 @@ jobs:
           action: install
           install_dir: renpy
 
-      - name: Run Ren'Py Lint (with disabled testcases)
+      - name: Run Ren'Py Lint (disable global testcase)
         uses: Ayowel/renpy-setup-action@v2.0.1
         with:
-          action: lint
+          action: exec
           install_dir: renpy
-          game: .
-          extra_args: "--config config.testcases=False"
+          run: lint . --config "config.testcases=False"
