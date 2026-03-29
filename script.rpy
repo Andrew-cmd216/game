@@ -119,6 +119,23 @@ image Town_Ann = "Town_Ann.png"
 image Random_1 = "Random_1.png"
 image Random_2 = "Random_2.png"
 image Random_3 = "Random_3.png"
+image Random_3 = "Random_4.png"
+image Random_3 = "Random_5.png"
+image Random_3 = "Random_6.png"
+image Town_Ann_1 = "Town_Ann_1.png"
+image Ann_anxious = "Ann_anxious.png"
+image Saloon_bert_ready = "Saloon_bert_ready.png"
+image Bert_staircase = "Bert_staircase.png"
+image Bert_keys = "Bert_keys.png"
+image Bert_ann_staircase = "Bert_ann_staircase.png"
+image Shot_X3 = "Shot_X3.png"
+image Room_Rush = "Room_Rush.png"
+image Bert_window = "Bert_window.png"
+image Bob_flee = "Bob_flee.png"
+image Room_Bert = "Room_Bert.png"
+image Room_Ann = "Room_Ann.png"
+image Room = "Room.png"
+image Room_will = "Room_will.png"
 
 # Игра начинается здесь:
 label start:
@@ -585,13 +602,13 @@ label start:
             scene Random_3
             r1 "ДААААААААААААААААААААААААААА! Я ОЧЕНБ ЛЮБЛЮ ГЛЯДЕЛКИИИИИИИИИИИИИИИИИИИИ!!!"
             r1 "Но ты победила"
-            scene Town_Ann
+            scene Town_Ann_1
             a "Да!"
             b "Наконец-то! Теперь вы можете сообщить нам, как выглядел тот человек?"
             scene Random_3
             r1 " Но я не знаю, всё, что я делаю по жизни – это играю в гляделки. Сегодня всё утро играю со своим отражением в зеркале."
             r1 "Не знаю, как вам и помочь. Хотите, может, сыграть ещё?"
-            scene Town_Ann
+            scene Town_Ann_1
             a "Да!"
             b "НЕТ."
 
@@ -599,7 +616,7 @@ label start:
             scene town_Bert_1
             b "Здравствуйте! Подскажите, вы не видели пробегающего рядом человека, который куда-то торопился."
             b "Он только что пытался скрыться от нас."
-            # scene Random_4
+            scene Random_4
             r1 "Как будто что-то было…"
             b "Что? Расскажите нам! Любая черта подойдёт."
             r1 "Как будто что-то было… Давным-давно в моей жизни… Что-то важное."
@@ -614,7 +631,7 @@ label start:
             scene town_Bert_1
             b "Здравствуйте! Подскажите, вы не видели пробегающего рядом человека, который куда-то торопился."
             b "Он только что пытался скрыться от нас."
-            # scene Random_5
+            scene Random_5
             r1 "Купи слона."
             scene town_Bert_1
             b "Даже не буду пытаться продолжить разговор."
@@ -633,7 +650,7 @@ label start:
     scene City_back
     b "Здравствуйте! Подскажите, вы не видели пробегающего рядом человека, который куда-то торопился."
     b "Он только что пытался скрыться от нас."
-    # scene Random_6
+    scene Random_6
     r1 "Шериф, вели бы вы себя поосторожнее. Вы всё равно такими расспросами ничего не добьётесь."
     b "О чём вы?"
     r1 "Тот, на кого вы охотитесь, - не простой человек. Это шейпшифтер, оборотень, или как его ещё назвать."
@@ -707,12 +724,12 @@ label start:
     j "Я ВСЕГДА БЫЛ ПРОТИВ ЭТОЙ ГЛУПОЙ РЕНОВАЦИИ!"
     j "Но он меня никогда не слушал."
     j "Это его и погубило."
-    # scene Ann_anxious
+    scene Ann_anxious
     a "..."
     scene Will2
     j "Поэтому прошу прощения, мы пока не принимаем новых гостей." 
     j "Если вы, конечно, не пришли за месье Жомским."
-    scene Saloon_Bert
+    scene Saloon_Ann_Bert
     b "!"
     b "Что вы сейчас сказали?"
     scene Will2
@@ -721,5 +738,71 @@ label start:
     j "Я веду честный бизнес и не ищу себе неприятностей, особенно с шерифом, поэтому не собираюсь никого укрывать у себя."
     scene Saloon_Bert
     b "Но, Мистер Таун Младший, мистер Жомский был убит сегодня ночью."
+    scene Will2
+    j "Исключено"
+    j "Он зашёл к себе в номер буквально четверть часа назад. И он очень спешил."
+    scene Ann_anxious
+    a "Берт, это же…"
+    b "Тихо…"
+    scene Will2
+    j "А что, собственно, происходит?"
+    scene Saloon_Bert
+    b "Мистер Таун младший, у вас же есть запасные ключи от номера Господина Жомского?"
+    scene Will2
+    j "Естественно! Я же не растяпа, в отличие от моего брата."
+    scene Saloon_Bert
+    b "Дайте их нам."
+    scene Will2
+    j "Я вам их не дам без уважительной причины."
+    scene Saloon_Bert
+    b "У вас в салуне находится самозванец, который убил вашего брата и добрую половину города."
+    scene Will2
+    j "Достаточно уважительная причина. Но…"
+    scene Saloon_bert_ready
+    b "Энни, оставайся тут. Это приказ."
+    scene Bert_staircase
+    $ show_window = False
+    ""
+    scene Bert_keys
+    ""
+    scene Bert_ann_staircase
+    ""
+    scene Shot_X3
+    ""
+    $ show_window = True
+    scene Room_Rush
+    b "Сбежал!"
+    scene Bert_window
+    $ show_window = False
+    ""
+    scene Bob_flee
+    ""
+    $ show_window = True
+    scene Room_Bert
+    a "Берт!"
+    a "У тебя кровь идёт…"
+    scene Room_Ann
+    b "Я же сказал тебе, не идти за мной!"
+    scene Room_Bert
+    b "Мы опять его упустили."
+    scene Room_Ann
+    a "Я хотела только помочь…"
+    scene Room_Bert
+    b "*Вздыхает*"
+    b "Давай просто осмотрим комнату, он должен был что-то тут оставить."
+    scene Room
+    b "Ну и беспорядок…"
+    scene Room_will
+    j "Мне ещё и дверь сломали! Ну что сегодня за день-то!"
+    j "Мистер Шерри! У вас кровь идёт."
+    scene Room_Bert
+    b "Я знаю."
+    scene Room_will
+    j "Давайте я вам принесу бинты."
+    b "Да, и принесите что-нибудь поесть, пока разбираем улики."
+    j "Хорошо, скоро буду."
+    scene Room_Bert
+    b "Давай возьмёмся за бумаги."
+
 
     return
