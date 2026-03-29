@@ -13,7 +13,6 @@
 ## Символы "_()", окружающие название, отмечают его как пригодное для перевода.
 
 define config.name = _("Oba Mna")
-define config.testcases = False
 
 ## Определяет, показывать ли заголовок, данный выше, на экране главного меню.
 ## Установите на False, чтобы спрятать заголовок.
@@ -209,3 +208,4 @@ init python:
 ## разделённые дробью.
 
 # define build.itch_project = "renpytom/test-project"
+define config.testcases = False
