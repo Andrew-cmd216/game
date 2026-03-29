@@ -28,9 +28,9 @@ jobs:
           action: install
           install_dir: renpy
 
-      - name: Run Ren'Py Lint (disable global testcase)
+      - name: Run Ren'Py Lint (disable global testcase conflict)
         uses: Ayowel/renpy-setup-action@v2.0.1
         with:
           action: exec
           install_dir: renpy
-          run: lint . --config "config.testcases=False"
+          run: lint . --define config.testcases=False
