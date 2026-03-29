@@ -28,23 +28,24 @@ jobs:
           action: install
           install_dir: renpy
 
-      - name: Clean duplicate testcases and compiled files
+      - name: Clean duplicate testcases and .rpyc files
         run: |
-          echo "=== Cleaning possible duplicate testcases.rpy ==="
+          echo "=== Cleaning possible duplicate testcases ==="
           rm -fv game/testcases.rpy game/testcases.rpyc
           rm -fv gui/game/testcases.rpy gui/game/testcases.rpyc
-          rm -fv game/gui/game/testcases.rpy game/gui/game/testcases.rpyc 2>/dev/null || true
+          rm -fv game/gui/game/testcases*.rpyc 2>/dev/null || true
           
-          echo "=== Removing all .rpyc files to force full recompile ==="
+          echo "=== Removing all compiled .rpyc files ==="
           find game -name "*.rpyc" -delete 2>/dev/null || true
           find gui -name "*.rpyc" -delete 2>/dev/null || true
           
-          echo "=== Current testcases files (should be none) ==="
+          echo "=== Checking for remaining testcases files ==="
           find . -name "*testcases*" -type f || true
 
       - name: Run Ren'Py Lint
         uses: Ayowel/renpy-setup-action@v2.0.1
         with:
-          action: exec
+          action: lint
           install_dir: renpy
-          run: lint . --define config.testcases=False
+          game: .
+          extra_args: --define config.testcases=False
