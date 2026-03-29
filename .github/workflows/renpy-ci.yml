@@ -1,4 +1,4 @@
-name: Ren'Py CI
+name: Ren'Py CI (Lint)
 
 on:
   push:
@@ -34,18 +34,22 @@ jobs:
 
       - name: Clean old compiled files
         run: |
-          echo "Cleaning old .rpyc and .rpymc files..."
-          find game -name "*.rpyc" -delete 2>/dev/null || true
-          find game -name "*.rpymc" -delete 2>/dev/null || true
-          rm -rf game/__pycache__ 2>/dev/null || true
+          echo "🧹 Cleaning old .rpyc files..."
+          find . -name "*.rpyc" -delete 2>/dev/null || true
+          find . -name "*.rpymc" -delete 2>/dev/null || true
+          rm -rf __pycache__ game/__pycache__ 2>/dev/null || true
+
+      - name: Show project structure (для отладки)
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Contents of root:"
+          ls -la
+          echo "Contents of game/ (if exists):"
+          ls -la game/ 2>/dev/null || echo "Папка game/ не найдена!"
 
       - name: Run Ren'Py Lint
         run: |
-          echo "Running Ren'Py Lint..."
-          ./renpy/renpy.sh game lint --error-on-any
-
-      - name: Success message
-        if: success()
-        run: |
-          echo "✅ Ren'Py Lint passed successfully!"
-          echo "Все скрипты проверены, ошибок не найдено."
+          echo "🚀 Running Ren'Py Lint..."
+          
+          # Самый надёжный вариант: указываем полный путь к папке проекта
+          ./renpy/renpy.sh . lint --error-on-any
